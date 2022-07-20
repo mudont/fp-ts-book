@@ -27,7 +27,7 @@ const parseGuess = (s: string): O.Option<number> => {
   return isNaN(n) || !isValidGuess(n) ? O.none : O.some(n)
 }
 
-const question: T.Task<string> = withMessage('Indovina il numero', getLine)
+const question: T.Task<string> = withMessage('Guess the number', getLine)
 
 const answer: T.Task<number> = pipe(
   question,
@@ -36,7 +36,7 @@ const answer: T.Task<number> = pipe(
       s,
       parseGuess,
       O.match(
-        () => withMessage('Devi inserire un intero da 1 a 100', answer),
+        () => withMessage('Enter an integer from 1 to 100', answer),
         (a) => T.of(a)
       )
     )
@@ -50,15 +50,15 @@ const check = <A>(
   ko: T.Task<A> // what to do if the user did NOT guess
 ): T.Task<A> => {
   if (guess > secret) {
-    return withMessage('Troppo alto', ko)
+    return withMessage('Too high', ko)
   } else if (guess < secret) {
-    return withMessage('Troppo basso', ko)
+    return withMessage('Too low', ko)
   } else {
     return ok
   }
 }
 
-const end: T.Task<void> = putStrLn('Hai indovinato!')
+const end: T.Task<void> = putStrLn('You have guessed it correctly!')
 
 // keep the state (secret) as the argument of the function (alla Erlang)
 const loop = (secret: number): T.Task<void> =>
