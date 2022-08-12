@@ -1,8 +1,8 @@
 # Monad transformers
 
-**Senario 1**
+## Senario 1
 
-Supponiamo di avere definto le seguenti API:
+Suppose we have defined the following APIs:
 
 ```ts
 import { head } from 'fp-ts/lib/Array'
@@ -26,58 +26,58 @@ function fetchFirstComment(
 }
 ```
 
-Il tipo del codominio della funzione `fetchFirstComment` è `Task<Option<string>>` ovvero una struttura dati innestata.
+The type of the range of the `fetchFirstComment` function is `Task <Option <string>>` which is a nested data structure.
 
-È possibile associare una istanza di monade?
+Is it possible to associate a monad instance?
 
-**Senario 2**
+## Scenario 2
 
-Per modellare una chiamata AJAX, il type constructor `Task` non è sufficiente dato che rappresenta una computazione
-asincrona che non può mai fallire, come possiamo modellare anche i possibili errori restituiti dalla chiamata (`403`, `500`, etc...)?
+To model an AJAX call, the type constructor `Task` is not sufficient since it represents a computation
+asynchronous which can never fail, how can we also model the possible errors returned by the call (`403`,` 500`, etc ...)?
 
-Più in generale supponiamo di avere una computazione con le seguenti proprietà:
+More generally, suppose we have a computation with the following properties:
 
-- asincrona
-- può fallire
+- asynchronous
+- can fail
 
-Come possiamo modellarla?
+How can we shape it?
 
-Sappiamo che questi due effetti possono essere rispettivamente codificati dai seguenti tipi:
+We know that these two effects can be respectively encoded by the following types:
 
-- `Task<A>` (asincronicità)
-- `Either<E, A>` (possibile fallimento)
+- `Task <A>` (asynchronicity)
+- `Either <E, A>` (possible failure)
 
-e che ambedue hanno una istanza di monade.
+and that both have an instance of monad.
 
-Come posso combinare questi due effetti?
+How can I combine these two effects?
 
-In due modi:
+In two ways:
 
-- `Task<Either<L, A>>` rappresenta una computazione asincrona che può fallire
-- `Either<L, Task<A>>` rappresenta una computazione che può fallire oppure che restituisce una computazione asincrona
+- `Task <Either <L, A >>` represents an asynchronous computation that can fail
+- `Either <L, Task <A>>` represents a computation that can fail or that returns an asynchronous computation
 
-Diciamo che sono interessato al primo dei due modi:
+Let's say I'm interested in the first of two ways:
 
-```ts
-interface TaskEither<L, A> extends Task<Either<L, A>> {}
-```
+`` '' ts
+interface TaskEither <L, A> extends Task <Either <L, A >> {}
+``
 
-È possibile definire una istanza di monade per `TaskEither`?
+Is it possible to define a monad instance for `TaskEither`?
 
-## Le monadi non compongono
+## Monads do not compose
 
-In generale le monadi non compongono, ovvero date due istanze di monade, una per `M<A>` e una per `N<A>`,
-allora non è detto che `M<N<A>>` ammetta ancora una istanza di monade.
+In general, monads do not compose, i.e. given two instances of monads, one for `M <A>` and one for `N <A>`,
+then `M <N <A>>` may not still admit an instance of a monad.
 
-**Quiz**. Perchè? Provare a definire la funzione `flatten`.
+**Quiz**. Because? Try defining the `flatten` function.
 
-Che non compongano in generale però non vuol dire che non esistano dei casi particolari ove questo succede.
+That they do not compose in general, however, does not mean that there are no particular cases where this happens.
 
-Vediamo qualche esempio, se `M` ammette una istanza di monade allora ammettono una istanza di monade i seguenti tipi:
+Let's see some examples, if `M` admits a monad instance then the following types admit a monad instance:
 
-- `OptionT<M, A> = M<Option<A>>`
-- `EitherT<M, L, A> = M<Either<L, A>>`
+- `OptionT <M, A> = M <Option <A>>`
+- `EitherT <M, L, A> = M <Either <L, A >>`
 
-Più in generale i **monad transformer** sono un elenco di "ricette" specifiche che mostrano come a `M<N<A>>` può essere associata una istanza di monade quando `M` e `N` ammettono una istanza di monade.
+More generally, ** monad transformers ** are a list of specific "recipes" that show how a monad instance can be associated with `M <N <A>>` when `M` and` N` admit an instance of monad.
 
-Per operare comodamente abbiamo bisogno di operazioni che permettono di immergere le computazioni che girano nelle monadi costituenti la monade target: le _lifting_ functions.
+To operate comfortably we need operations that allow to immerse the computations that run in the monads constituting the target monad: the _lifting_ functions.

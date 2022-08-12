@@ -1,8 +1,8 @@
 /*
 
-  Terzo refactoring: rendere le funzioni pure con `IO`
+  Third refactoring: make functions pure with `IO`
 
-  Modifichiamo la firma delle funzioni impure usando `IO` e cambiamo il nome di alcune astrazioni per renderle più idiomatiche
+   We modify the signature of the impure functions using `IO` and change the name of some abstractions to make them more idiomatic
 
 */
 

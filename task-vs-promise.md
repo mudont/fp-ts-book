@@ -1,18 +1,17 @@
 # `Task` versus `Promise`
 
-`Task` è una astrazione simile a `Promise`, la differenza chiave è che `Task` rappresenta una computazione asincrona
-mentre `Promise` rappresenta solo un risultato (ottenuto in maniera asincrona).
+`Task` is an abstraction similar to `Promise`, the key difference is that `Task` represents an asynchronous computation while `Promise` represents only a result (obtained asynchronously).
 
-Se abbiamo un `Task`
+If we have a `Task`
 
-- possiamo far partire la computazione che rappresenta (per esempio una richiesta network)
-- possiamo scegliere di non far partire la computazione
-- possiamo farlo partire più di una volta (e potenzialmente ottenere risultati diversi)
-- mentre la computazione si sta svolgendo, possiamo notificargli che non siamo più interessati al risultato e la computazione può scegliere di terminarsi da sola
-- quando la computazione finisce otteniamo il risultato
+- we can start the computation it represents (for example a network request)
+- we can choose not to start the computation
+- we can run it more than once (and potentially get different results)
+- while the computation is taking place, we can notify it that we are no longer interested in the result and the computation can choose to end itself
+- when the computation ends we get the result
 
-Se abbiamo una `Promise`
+If we have a `Promise`
 
-- la computazione si sta già svolgendo (o è addirittura già finita) e non abbiamo controllo su questo
-- quando è disponible otteniamo il risultato
-- due consumatori della stessa `Promise` ottengono lo stesso risultato
+- the computation is already taking place (or is even finished) and we have no control over this
+- when it is available we get the result
+- two consumers of the same `Promise` obtain the same result

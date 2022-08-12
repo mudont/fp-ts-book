@@ -1,6 +1,6 @@
 /*
 
-  E se volessimo far girare il programma in un contesto asincrono?
+What if we wanted to run the program in an asynchronous context?
 
 */
 

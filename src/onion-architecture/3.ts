@@ -1,8 +1,8 @@
 /*
 
-  Secondo refactoring: inversion of control
+  Second refactoring: inversion of control
 
-  Le funzioni impure le trasformo in dipendenze
+  Turn impure functions into dependencies
 
 */
 
