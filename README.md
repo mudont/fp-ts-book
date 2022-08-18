@@ -2229,7 +2229,7 @@ export const head = match(
   (head, _tail) => head
 )
 
-// returns the length of the the list, recursively
+// returns the length of the list, recursively
 export const length: <A>(fa: List<A>) => number = match(
   () => 0,
   (_, tail) => 1 + length(tail)
